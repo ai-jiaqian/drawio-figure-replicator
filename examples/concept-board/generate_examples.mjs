@@ -56,11 +56,12 @@ function makeIcon(name, color = "#163A5F") {
 }
 
 function makeGaugeSvg() {
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 150">
-  <path d="M28 112 A82 82 0 0 1 72 40" fill="none" stroke="#F0645A" stroke-width="22" stroke-linecap="butt"/>
-  <path d="M76 38 A82 82 0 0 1 110 28" fill="none" stroke="#F1BA46" stroke-width="22" stroke-linecap="butt"/>
-  <path d="M114 28 A82 82 0 0 1 192 112" fill="none" stroke="#54B978" stroke-width="22" stroke-linecap="butt"/>
-  <line x1="110" y1="112" x2="174" y2="66" stroke="#1D3148" stroke-width="8" stroke-linecap="round"/>
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 145">
+  <path d="M28 112 A82 82 0 0 1 72 40" fill="none" stroke="#F0645A" stroke-width="21" stroke-linecap="butt"/>
+  <path d="M76 38 A82 82 0 0 1 110 28" fill="none" stroke="#F1BA46" stroke-width="21" stroke-linecap="butt"/>
+  <path d="M114 28 A82 82 0 0 1 192 112" fill="none" stroke="#54B978" stroke-width="21" stroke-linecap="butt"/>
+  <line x1="110" y1="112" x2="174" y2="66" stroke="#1D3148" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="110" cy="112" r="7" fill="#1D3148"/>
   <polygon points="174,66 154,72 166,88" fill="#1D3148"/>
 </svg>`;
 }
@@ -271,7 +272,7 @@ function makeAgentPlatform(outDir) {
 function makeModelPipeline(outDir) {
   const d = new Diagram("Model Pipeline", "model-pipeline", 768, 512);
   d.rect({ x: 0, y: 0, w: 768, h: 512, fill: "#FFFFFF", stroke: "#CAD3DE", sw: 1, r: 0 });
-  d.text({ x: 0, y: 7, w: 768, h: 32, value: "<b>3. Model Pipeline</b>", font: 22, color: "#172033" });
+  d.text({ x: 0, y: 6, w: 768, h: 32, value: "<b>3. Model Pipeline</b>", font: 22, color: "#172033" });
 
   const cardY = 45;
   const cardW = 86;
@@ -290,16 +291,16 @@ function makeModelPipeline(outDir) {
   topCards.forEach((card, i) => {
     const x = xs[i];
     const color = card.color ?? "#163A5F";
-    d.rect({ x, y: cardY, w: cardW, h: cardH, value: "", fill: "#F8FAFD", stroke: "#9AAEC4", sw: 1.2, r: 1 });
+    d.rect({ x, y: cardY, w: cardW, h: cardH, value: "", fill: "#F9FBFE", stroke: "#9AAEC4", sw: 1.15, r: 1 });
     d.text({ x: x + 8, y: cardY + 12, w: cardW - 16, h: 16, value: `<b>${card.title}</b>`, font: 8.5, color: "#153A6A" });
     d.icon({ name: card.icon, x: x + 25, y: cardY + 42, size: 38, color });
     d.text({ x: x + 7, y: cardY + 93, w: cardW - 14, h: 30, value: card.body, font: 8.5, color: "#172033" });
 
     if (card.extras === "sources") {
-      d.icon({ name: "document", x: x + 11, y: cardY + 123, size: 25, color: "#163A5F" });
-      d.icon({ name: "database", x: x + 50, y: cardY + 123, size: 29, color: "#163A5F" });
-      d.icon({ name: "document", x: x + 10, y: cardY + 161, size: 21, color: "#163A5F" });
-      d.icon({ name: "document", x: x + 36, y: cardY + 161, size: 21, color: "#163A5F" });
+      d.icon({ name: "document", x: x + 10, y: cardY + 123, size: 26, color: "#163A5F" });
+      d.icon({ name: "database", x: x + 49, y: cardY + 122, size: 30, color: "#163A5F" });
+      d.icon({ name: "document", x: x + 10, y: cardY + 161, size: 22, color: "#163A5F" });
+      d.icon({ name: "document", x: x + 36, y: cardY + 161, size: 22, color: "#163A5F" });
     }
     if (card.extras === "checklines") {
       for (let n = 0; n < 3; n++) {
@@ -352,14 +353,14 @@ function makeModelPipeline(outDir) {
   d.edge({ sx: xs[3] + cardW / 2, sy: cardY + cardH, tx: 380, ty: 274, points: [[xs[3] + cardW / 2, 261], [380, 261]], dashed: true, color: "#8FA2B8", sw: 1.2 });
   d.edge({ sx: xs[4] + cardW / 2, sy: cardY + cardH, tx: 602, ty: 274, points: [[xs[4] + cardW / 2, 261], [602, 261]], dashed: true, color: "#8FA2B8", sw: 1.2 });
 
-  d.rect({ x: 27, y: 273, w: 197, h: 160, value: "", fill: "#FFFFFF", stroke: "#B7C4D4", sw: 1.1, r: 1 });
+  d.rect({ x: 27, y: 273, w: 197, h: 160, value: "", fill: "#FFFFFF", stroke: "#B7C4D4", sw: 1.05, r: 1 });
   d.text({ x: 40, y: 287, w: 170, h: 15, value: "<b>A. Example Chunk → Embedding</b>", font: 8.5, color: "#172033" });
   d.rect({ x: 39, y: 314, w: 92, h: 50, value: "The capital of France<br>is Paris.", fill: "#F8FAFD", stroke: "#B7C4D4", sw: 1, r: 1, font: 8, color: "#172033", align: "left" });
   d.edge({ sx: 139, sy: 339, tx: 200, ty: 339, color: "#164F92", sw: 1.8 });
   d.rect({ x: 39, y: 377, w: 168, h: 34, value: "[  0.21    -0.47     0.12     ...     0.33  ]", fill: "#FFFFFF", stroke: "#7A9BC6", sw: 1, r: 1, font: 8, color: "#163A5F" });
   d.text({ x: 94, y: 416, w: 66, h: 10, value: "d = 1536", font: 7, color: "#596B80" });
 
-  d.rect({ x: 236, y: 273, w: 262, h: 160, value: "", fill: "#FFFFFF", stroke: "#B7C4D4", sw: 1.1, r: 1 });
+  d.rect({ x: 236, y: 273, w: 262, h: 160, value: "", fill: "#FFFFFF", stroke: "#B7C4D4", sw: 1.05, r: 1 });
   d.text({ x: 276, y: 287, w: 180, h: 15, value: "<b>B. Similarity (Query vs Corpus)</b>", font: 8.5, color: "#172033" });
   d.table({
     x: 252, y: 304, w: 226, h: 108, rows: 5, cols: 6,
@@ -376,13 +377,14 @@ function makeModelPipeline(outDir) {
   const trh = 108 / 5;
   [[1, 1, "0.71"], [2, 2, "0.81"], [4, 3, "0.62"]].forEach(([r, c, v]) => d.rect({ x: 252 + c * tcw, y: 304 + r * trh, w: tcw, h: trh, fill: "#BEE9E0", stroke: "#91A4BC", sw: 1, r: 0, value: v, font: 7.5, color: "#17375E" }));
 
-  d.rect({ x: 510, y: 273, w: 193, h: 160, value: "", fill: "#FFFFFF", stroke: "#B7C4D4", sw: 1.1, r: 1 });
+  d.rect({ x: 510, y: 273, w: 193, h: 160, value: "", fill: "#FFFFFF", stroke: "#B7C4D4", sw: 1.05, r: 1 });
   d.text({ x: 575, y: 287, w: 64, h: 15, value: "<b>C. Confidence</b>", font: 8.5, color: "#172033" });
   d.text({ x: 601, y: 312, w: 34, h: 12, value: "0.5", font: 8, color: "#172033" });
-  d.svgImage({ svg: makeGaugeSvg(), x: 535, y: 321, w: 148, h: 100 });
+  d.svgImage({ svg: makeGaugeSvg(), x: 531, y: 323, w: 154, h: 101 });
   d.text({ x: 533, y: 389, w: 20, h: 12, value: "0", font: 8, color: "#172033" });
-  d.text({ x: 654, y: 389, w: 26, h: 12, value: "1.0", font: 8, color: "#172033" });
-  d.text({ x: 590, y: 374, w: 70, h: 28, value: "<b>0.86</b><br><span style='font-size:8px'>High Confidence</span>", font: 15, color: "#122A44" });
+  d.text({ x: 657, y: 389, w: 26, h: 12, value: "1.0", font: 8, color: "#172033" });
+  d.text({ x: 590, y: 390, w: 72, h: 18, value: "<b>0.86</b>", font: 15, color: "#122A44" });
+  d.text({ x: 584, y: 410, w: 84, h: 12, value: "High Confidence", font: 8, color: "#078481" });
 
   fs.writeFileSync(path.join(outDir, "model-pipeline.drawio"), d.xml());
   writeSvgAssets(outDir, [["cloud", "Data ingestion"], ["filter", "Preprocessing"], ["graph", "Embedding vectors"], ["search", "Retrieval"], ["brain", "Model inference"], ["shield", "Verifier"], ["document", "Final output"], ["database", "Raw source database"], ["code", "Source link indicator"]]);
