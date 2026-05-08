@@ -90,6 +90,16 @@ See [examples/contextforge](examples/contextforge/README.md) for a high-density 
 - Citation and trace packaging
 - Assembly buffer and feedback loop
 
+See [examples/skillcircuit](examples/skillcircuit/README.md) for a modular large-figure recreation:
+
+- Task stream
+- Team execution
+- Trace mining
+- Skill registry
+- Distillation lab
+- Deployment monitoring
+- Experience accumulation timeline
+
 See [examples/concept-board](examples/concept-board/README.md) for four additional generated-reference recreations:
 
 - Research Framework

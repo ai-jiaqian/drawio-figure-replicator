@@ -84,6 +84,8 @@ macOS 上通常可以这样导出 PNG：
 
 见 [examples/contextforge](examples/contextforge/README.md)。这是一个高密度论文风格框架图复刻示例，包含多源上下文组装、冲突解决、质量门禁、引用追踪包和组装缓冲区。
 
+见 [examples/skillcircuit](examples/skillcircuit/README.md)。这是一个模块化的大图复刻示例，展示任务流、团队执行、轨迹挖掘、技能注册、蒸馏实验室、部署监控和经验累积时间线。
+
 另见 [examples/concept-board](examples/concept-board/README.md)。当前包含四个独立的参考图复刻示例：
 
 - Research Framework
