@@ -254,6 +254,17 @@ function registry(d) {
       ["...", "...", "...", "...", "..."]
     ]
   });
+  [
+    [1128, 178, "v3", "#42A65A"],
+    [1128, 230, "v2", "#F28C13"],
+    [1128, 282, "v1", "#1A73B8"],
+    [1128, 334, "v3", "#42A65A"]
+  ].forEach(([x, y, label, fill]) => {
+    d.rect({ x, y, w: 28, h: 18, value: `<b>${label}</b>`, fill, stroke: fill, font: 9, color: "#FFFFFF" });
+  });
+  [[1466, 177, "↑", "#1D8B45"], [1466, 229, "↑", "#1D8B45"], [1466, 281, "↑", "#1D8B45"], [1466, 333, "↓", "#E02A25"]].forEach(([x, y, label, color]) => {
+    d.text({ x, y, w: 18, h: 20, value: `<b>${label}</b>`, font: 16, color });
+  });
   [["v1 initial", "#EAF2FF"], ["v2 improved", "#FFF3E0"], ["v3 stable", "#EAF8EF"], ["↑ improving", "#EAF8EF"], ["↓ dropping", "#FFF0F0"]].forEach(([label, fill], i) => {
     d.rect({ x: 1110 + i * 72, y: 378, w: 68, h: 24, value: label, fill, stroke: "#C9D4E2", font: 8 });
   });
