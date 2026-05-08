@@ -80,6 +80,17 @@ Requirements:
 - export a PNG preview and compare it with the reference
 ```
 
+## Examples
+
+See [examples/concept-board](examples/concept-board/README.md) for four independent generated-reference recreations:
+
+- Research Framework
+- Agent Platform Architecture
+- Model Pipeline
+- Experience Flywheel
+
+Each example includes an editable `.drawio` file, exported PNG preview, standalone SVG assets, and a regeneration script.
+
 ## Output Contract
 
 A good run creates an isolated folder near the reference image:

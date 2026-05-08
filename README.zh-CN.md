@@ -80,6 +80,17 @@ macOS 上通常可以这样导出 PNG：
 - 导出 PNG 预览，并和参考图对比后再交付
 ```
 
+## 示例
+
+见 [examples/concept-board](examples/concept-board/README.md)。当前包含四个独立的参考图复刻示例：
+
+- Research Framework
+- Agent Platform Architecture
+- Model Pipeline
+- Experience Flywheel
+
+每个示例都包含可编辑 `.drawio`、导出 PNG 预览、独立 SVG assets 和可重新生成的脚本。
+
 ## 输出标准
 
 一次合格输出应该生成独立文件夹：

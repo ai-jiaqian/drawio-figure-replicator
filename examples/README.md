@@ -20,3 +20,7 @@ Good launch examples:
 - business workflow diagram
 
 Do not commit private customer diagrams, screenshots with sensitive text, or protected brand assets unless they are explicitly cleared for public release.
+
+## Included
+
+- [concept-board](concept-board/README.md): four independent generated-reference examples covering a research framework, agent platform architecture, model pipeline, and experience flywheel.
