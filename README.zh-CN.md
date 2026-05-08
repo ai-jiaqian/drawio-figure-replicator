@@ -4,6 +4,8 @@
 
 大多数 AI 画图工具从文字开始，这个 skill 从参考图开始：论文图、架构截图、白板照片、流程图、生成图概念稿都可以作为输入。Agent 的目标不是生成一张新图片，而是重建一个可编辑、可维护、可导出、可继续迭代的 `.drawio` 文件。
 
+![SkillCircuit 参考图到 draw.io 对比](examples/skillcircuit/comparison.png)
+
 ## 核心价值
 
 AI 生成图很适合探索视觉方向，但经常变成不可编辑的死图。团队真正需要的是能改文字、改箭头、改框、改结构、能进版本库的图。
@@ -82,9 +84,31 @@ macOS 上通常可以这样导出 PNG：
 
 ## 示例
 
-见 [examples/contextforge](examples/contextforge/README.md)。这是一个高密度论文风格框架图复刻示例，包含多源上下文组装、冲突解决、质量门禁、引用追踪包和组装缓冲区。
+### SkillCircuit：模块化大图复刻
 
-见 [examples/skillcircuit](examples/skillcircuit/README.md)。这是一个模块化的大图复刻示例，展示任务流、团队执行、轨迹挖掘、技能注册、蒸馏实验室、部署监控和经验累积时间线。
+![SkillCircuit 模块级 QA](examples/skillcircuit/module-qa-contact-sheet.png)
+
+[SkillCircuit](examples/skillcircuit/README.md) 展示了大图的模块化复刻流程：先把参考图拆成 7 个 panel，每个模块单独做局部 QA，再统一集成跨模块连线。
+
+- Task Stream
+- Team Execution
+- Trace Mining
+- Skill Registry
+- Distillation Lab
+- Deployment Monitoring
+- Experience Accumulation Timeline
+
+文件：[draw.io](examples/skillcircuit/skillcircuit.drawio)、[PNG 预览](examples/skillcircuit/skillcircuit.png)、[完整对比图](examples/skillcircuit/comparison.png)、[模块 QA 图](examples/skillcircuit/module-qa-contact-sheet.png)。
+
+### ContextForge：高密度论文框架图
+
+![ContextForge 参考图到 draw.io 对比](examples/contextforge/comparison.png)
+
+[ContextForge](examples/contextforge/README.md) 是一个高密度论文风格框架图复刻示例，包含多源上下文组装、冲突解决、质量门禁、引用追踪包和组装缓冲区。
+
+文件：[draw.io](examples/contextforge/contextforge.drawio)、[PNG 预览](examples/contextforge/contextforge.png)、[完整对比图](examples/contextforge/comparison.png)。
+
+### 更多概念样例
 
 另见 [examples/concept-board](examples/concept-board/README.md)。当前包含四个独立的参考图复刻示例：
 

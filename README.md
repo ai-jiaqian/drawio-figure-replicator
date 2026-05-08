@@ -4,6 +4,8 @@ Turn reference diagrams into editable draw.io / diagrams.net files with AI agent
 
 Most AI diagram tools start from text. This skill starts from a reference image: a paper figure, architecture screenshot, whiteboard photo, workflow diagram, or generated visual comp. The agent rebuilds it as native draw.io XML with editable boxes, arrows, labels, tables, and portable SVG icon assets.
 
+![SkillCircuit reference-to-drawio comparison](examples/skillcircuit/comparison.png)
+
 ## Why This Exists
 
 AI image generation is useful for visual exploration, but it usually produces dead images. Teams need diagrams they can inspect, edit, version, localize, and maintain.
@@ -82,15 +84,11 @@ Requirements:
 
 ## Examples
 
-See [examples/contextforge](examples/contextforge/README.md) for a high-density academic-style framework figure recreation:
+### SkillCircuit: Modular Large-Figure Recreation
 
-- Multi-source context assembly
-- Conflict resolution workflow
-- Quality gates
-- Citation and trace packaging
-- Assembly buffer and feedback loop
+![SkillCircuit module QA](examples/skillcircuit/module-qa-contact-sheet.png)
 
-See [examples/skillcircuit](examples/skillcircuit/README.md) for a modular large-figure recreation:
+[SkillCircuit](examples/skillcircuit/README.md) demonstrates the module-first workflow for dense figures. The reference is split into seven panels, each checked with module-level QA crops before final integration:
 
 - Task stream
 - Team execution
@@ -99,6 +97,24 @@ See [examples/skillcircuit](examples/skillcircuit/README.md) for a modular large
 - Distillation lab
 - Deployment monitoring
 - Experience accumulation timeline
+
+Files: [draw.io](examples/skillcircuit/skillcircuit.drawio), [PNG export](examples/skillcircuit/skillcircuit.png), [full comparison](examples/skillcircuit/comparison.png), [module QA](examples/skillcircuit/module-qa-contact-sheet.png).
+
+### ContextForge: High-Density Academic Framework
+
+![ContextForge reference-to-drawio comparison](examples/contextforge/comparison.png)
+
+[ContextForge](examples/contextforge/README.md) is a high-density academic-style framework figure recreation:
+
+- Multi-source context assembly
+- Conflict resolution workflow
+- Quality gates
+- Citation and trace packaging
+- Assembly buffer and feedback loop
+
+Files: [draw.io](examples/contextforge/contextforge.drawio), [PNG export](examples/contextforge/contextforge.png), [full comparison](examples/contextforge/comparison.png).
+
+### Additional Concept Board
 
 See [examples/concept-board](examples/concept-board/README.md) for four additional generated-reference recreations:
 
