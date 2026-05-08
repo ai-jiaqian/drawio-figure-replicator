@@ -10,6 +10,7 @@ The reference is an original generated framework figure about closed-loop skill 
 - `skillcircuit.drawio`: editable diagrams.net file built from native draw.io cells.
 - `skillcircuit.png`: exported PNG preview from the `.drawio` file.
 - `comparison.png`: side-by-side reference and draw.io export.
+- `team-execution-comparison.png`: module-level QA crop for the Team Execution panel.
 - `generate_skillcircuit.mjs`: deterministic regeneration script, organized by panel functions.
 - `svg/`: standalone reusable SVG icon assets.
 - `SVG_ASSETS.md`: icon inventory.

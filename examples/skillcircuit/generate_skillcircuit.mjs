@@ -151,31 +151,47 @@ function taskStream(d) {
 
 function teamExecution(d) {
   d.panel({ x: 340, y: 52, w: 330, h: 366, title: "Team Execution", num: 2, color: "#0B6D70" });
-  d.table({
-    x: 354,
-    y: 92,
-    w: 300,
-    h: 282,
-    font: 8,
-    colWidths: [74, 180, 46],
-    values: [
-      ["Agent", "Message Flow / Tool Calls", "State"],
-      ["Planner", "Plan q<sub>i</sub>  →  tool: decompose", "state<br>planning"],
-      ["Researcher", "Find patterns  →  tool: web.search", "state<br>searching"],
-      ["Builder", "Implement module  →  tool: code.exec", "state<br>coding"],
-      ["Reviewer", "Review changes  →  tool: test.run", "state<br>reviewing"]
-    ],
-    headerFill: "#EAF2FF"
+  const tx = 352;
+  const ty = 92;
+  const tw = 304;
+  const th = 282;
+  const c1 = 74;
+  const c2 = 184;
+  const header = 30;
+  const row = 63;
+  d.rect({ x: tx, y: ty, w: tw, h: th, fill: "#FFFFFF", stroke: "#6F8EB7", sw: 1.2, r: 0 });
+  d.rect({ x: tx, y: ty, w: tw, h: header, fill: "#EAF2FF", stroke: "#6F8EB7", sw: 1, r: 0 });
+  [tx + c1, tx + c1 + c2].forEach((x) => d.edge({ sx: x, sy: ty, tx: x, ty: ty + th, arrow: "none", sw: 1, color: "#6F8EB7" }));
+  [ty + header, ty + header + row, ty + header + row * 2, ty + header + row * 3, ty + th].forEach((y) => {
+    d.edge({ sx: tx, sy: y, tx: tx + tw, ty: y, arrow: "none", sw: 1, color: "#6F8EB7" });
   });
-  [["bot", 138], ["search", 210], ["code", 282], ["shield", 336]].forEach(([ic, y]) => d.icon({ name: ic, x: 360, y, size: 24, color: "#103C80" }));
-  [178, 250, 322].forEach((y) => d.edge({ sx: 454, sy: y, tx: 454, ty: y + 42, arrow: "classic", sw: 1.3 }));
-  d.edge({ sx: 500, sy: 145, tx: 604, ty: 145, arrow: "classic", sw: 1.3 });
-  d.edge({ sx: 500, sy: 217, tx: 604, ty: 217, arrow: "classic", sw: 1.3 });
-  d.edge({ sx: 500, sy: 289, tx: 604, ty: 289, arrow: "classic", sw: 1.3 });
-  d.text({ x: 388, y: 386, w: 160, h: 18, value: "message", font: 9 });
-  d.edge({ sx: 388, sy: 394, tx: 448, ty: 394, arrow: "classic", sw: 1.2 });
-  d.rect({ x: 524, y: 384, w: 54, h: 18, fill: "#FFF9EA", stroke: "#8A7A55", font: 8 });
-  d.text({ x: 584, y: 386, w: 58, h: 18, value: "tool call", font: 9, align: "left" });
+  d.text({ x: tx + 18, y: ty + 8, w: 38, h: 14, value: "Agent", font: 8 });
+  d.text({ x: tx + c1 + 42, y: ty + 8, w: 98, h: 14, value: "Message Flow / Tool Calls", font: 8 });
+  d.text({ x: tx + c1 + c2 + 8, y: ty + 8, w: 32, h: 14, value: "State", font: 8 });
+
+  const agents = [
+    ["bot", "Planner", "Plan q<sub>i</sub>", "tool: decompose", "state<br>planning<br>..."],
+    ["search", "Researcher", "Find patterns", "tool: web.search", "state<br>searching<br>..."],
+    ["code", "Builder", "Implement module", "tool: code.exec", "state<br>coding<br>..."],
+    ["shield", "Reviewer", "Review changes", "tool: test.run", "state<br>reviewing<br>..."]
+  ];
+  agents.forEach(([ic, name, message, tool, state], i) => {
+    const top = ty + header + i * row;
+    const cy = top + row / 2;
+    d.icon({ name: ic, x: tx + 8, y: cy - 13, size: 25, color: "#103C80" });
+    d.text({ x: tx + 38, y: cy - 9, w: 34, h: 18, value: name, font: 7.6, align: "left" });
+    d.rect({ x: tx + c1 + 16, y: cy - 13, w: 54, h: 25, value: message, fill: "#F7FBFF", stroke: "#6F8EB7", font: 7.4 });
+    d.edge({ sx: tx + c1 + 72, sy: cy, tx: tx + c1 + c2 - 12, ty: cy, arrow: "classic", sw: 1.2 });
+    d.rect({ x: tx + c1 + 98, y: cy + 12, w: 72, h: 18, value: tool, fill: "#FFF9EA", stroke: "#8A7A55", font: 7.2 });
+    d.rect({ x: tx + c1 + c2 + 7, y: cy - 22, w: 32, h: 44, value: state, fill: "#F7FBFF", stroke: "#6F8EB7", font: 6.4 });
+  });
+  [ty + header + row - 13, ty + header + row * 2 - 13, ty + header + row * 3 - 13].forEach((y) => {
+    d.edge({ sx: tx + c1 + 58, sy: y, tx: tx + c1 + 58, ty: y + 28, arrow: "classic", sw: 1.2 });
+  });
+  d.edge({ sx: tx + 38, sy: 394, tx: tx + 78, ty: 394, arrow: "classic", sw: 1.2 });
+  d.text({ x: tx + 86, y: 386, w: 56, h: 18, value: "message", font: 9, align: "left" });
+  d.rect({ x: tx + 178, y: 384, w: 44, h: 18, fill: "#FFF9EA", stroke: "#8A7A55", font: 8 });
+  d.text({ x: tx + 230, y: 386, w: 58, h: 18, value: "tool call", font: 9, align: "left" });
 }
 
 function traceMiner(d) {
