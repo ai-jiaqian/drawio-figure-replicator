@@ -86,7 +86,7 @@ macOS 上通常可以这样导出 PNG：
 
 ### SkillCircuit：模块化大图复刻
 
-![SkillCircuit 模块级 QA](examples/skillcircuit/module-qa-contact-sheet.png)
+![SkillCircuit 参考图到 draw.io 完整对比](examples/skillcircuit/comparison.png)
 
 [SkillCircuit](examples/skillcircuit/README.md) 展示了大图的模块化复刻流程：先把参考图拆成 7 个 panel，每个模块单独做局部 QA，再统一集成跨模块连线。
 

@@ -86,7 +86,7 @@ Requirements:
 
 ### SkillCircuit: Modular Large-Figure Recreation
 
-![SkillCircuit module QA](examples/skillcircuit/module-qa-contact-sheet.png)
+![SkillCircuit reference-to-drawio comparison](examples/skillcircuit/comparison.png)
 
 [SkillCircuit](examples/skillcircuit/README.md) demonstrates the module-first workflow for dense figures. The reference is split into seven panels, each checked with module-level QA crops before final integration:
 
