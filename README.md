@@ -1,5 +1,7 @@
 # Draw.io Figure Replicator
 
+[English](README.md) | [中文](README.zh-CN.md)
+
 Turn reference diagrams into editable draw.io / diagrams.net files with AI agents.
 
 Most AI diagram tools start from text. This skill starts from a reference image: a paper figure, architecture screenshot, whiteboard photo, workflow diagram, or generated visual comp. The agent rebuilds it as native draw.io XML with editable boxes, arrows, labels, tables, and portable SVG icon assets.

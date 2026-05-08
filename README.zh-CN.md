@@ -1,5 +1,7 @@
 # Draw.io Figure Replicator
 
+[English](README.md) | [中文](README.zh-CN.md)
+
 把参考图复刻成可编辑的 draw.io / diagrams.net 文件。
 
 大多数 AI 画图工具从文字开始，这个 skill 从参考图开始：论文图、架构截图、白板照片、流程图、生成图概念稿都可以作为输入。Agent 的目标不是生成一张新图片，而是重建一个可编辑、可维护、可导出、可继续迭代的 `.drawio` 文件。
