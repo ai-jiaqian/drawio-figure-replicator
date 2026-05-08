@@ -1,0 +1,14 @@
+.DS_Store
+Thumbs.db
+
+# Generated recreation outputs
+*_recreated/
+
+# Keep example source placeholders, but avoid accidentally committing private references.
+examples/private/
+examples/**/source.*
+examples/**/*.tmp.drawio
+
+# Local editor files
+.idea/
+.vscode/

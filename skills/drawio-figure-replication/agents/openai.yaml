@@ -1,0 +1,4 @@
+interface:
+  display_name: "Draw.io Figure Replication"
+  short_description: "Recreate reference diagrams as editable draw.io files."
+  default_prompt: "Recreate this reference figure as editable draw.io with SVG assets and a PNG preview."
