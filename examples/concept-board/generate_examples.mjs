@@ -253,40 +253,80 @@ function makeAgentPlatform(outDir) {
 function makeModelPipeline(outDir) {
   const d = new Diagram("Model Pipeline", "model-pipeline");
   baseTitle(d, "Model Pipeline");
+
+  d.text({ x: 64, y: 64, w: 1152, h: 26, value: "Retrieval-augmented model workflow with verification, similarity evidence, and confidence scoring", font: 14, color: "#58677B" });
+  d.edge({ sx: 68, sy: 92, tx: 1212, ty: 92, arrow: "none", color: "#D9E2EE", sw: 1.2 });
+
   const steps = [
-    ["1. Ingestion", "cloud", "Raw Data<br>(Sources)"],
-    ["2. Preprocessing", "filter", "Clean • Chunk • Tag"],
-    ["3. Embedding", "graph", "Embed<br>(High-Dimensional)"],
-    ["4. Retrieval", "search", "Top-K<br>Relevant Context"],
-    ["5. Inference", "brain", "LLM / Model<br>Generate"],
-    ["6. Verifier", "shield", "Verify &amp; Score<br>(Guardrails)"],
-    ["7. Output", "document", "Final Answer<br>+ Sources"]
+    ["1. Ingestion", "cloud", "Raw sources", ["PDF", "CSV", "Logs"], "#EAF3FF"],
+    ["2. Preprocessing", "filter", "Clean • chunk • tag", ["Split", "Normalize", "Index"], "#F5FAFF"],
+    ["3. Embedding", "graph", "Dense vectors", ["d=1536", "cosine", "ANN"], "#F2F0FF"],
+    ["4. Retrieval", "search", "Top-K context", ["rank", "rerank", "cite"], "#F7FAFE"],
+    ["5. Inference", "brain", "LLM generate", ["prompt", "answer", "rationale"], "#F6FAFF"],
+    ["6. Verifier", "shield", "Guardrails", ["grounded", "safe", "consistent"], "#F7FBF8"],
+    ["7. Output", "document", "Answer + sources", ["final", "trace", "links"], "#F8FAFD"]
   ];
-  const startX = 40;
-  const gap = 22;
-  const w = 150;
-  steps.forEach(([title, icon, body], i) => {
+
+  const startX = 36;
+  const gap = 16;
+  const w = 158;
+  const topY = 112;
+  const cardH = 255;
+  steps.forEach(([title, icon, body, chips, fill], i) => {
     const x = startX + i * (w + gap);
-    d.rect({ x, y: 105, w, h: 250, value: "", fill: "#F8FAFD", stroke: "#9AAEC4", font: 13, color: "#17375E" });
-    d.text({ x: x + 12, y: 126, w: w - 24, h: 24, value: `<b>${title}</b>`, font: 12, color: "#17375E" });
-    d.icon({ name: icon, x: x + 51, y: 168, size: 48, color: "#17375E" });
-    d.text({ x: x + 18, y: 238, w: w - 36, h: 62, value: body, font: 11, color: "#17375E" });
-    if (i < steps.length - 1) d.edge({ sx: x + w, sy: 230, tx: x + w + gap, ty: 230, sw: 2 });
-  });
-  [0, 1, 2].forEach((i) => d.rect({ x: 82 + i * 34, y: 292, w: 20, h: 20, fill: "#7B70D6", stroke: "#594BB8", r: 0 }));
-  ["Grounded", "Safe", "Consistent"].forEach((t, i) => {
-    d.text({ x: 922, y: 278 + i * 24, w: 76, h: 20, value: t, font: 11, align: "left" });
-    d.text({ x: 996, y: 278 + i * 24, w: 20, h: 20, value: "✓", font: 14, color: "#0D8F70" });
+    d.rect({ x, y: topY, w, h: cardH, value: "", fill, stroke: "#A9B8CB", sw: 1.7, r: 1 });
+    d.rect({ x: x + 1, y: topY + 1, w: w - 2, h: 36, value: `<b>${title}</b>`, fill: "#FFFFFF", stroke: "#D4DEEA", sw: 0.8, r: 1, font: 12, color: "#17375E" });
+    d.icon({ name: icon, x: x + 52, y: topY + 58, size: 54, color: i === 2 ? "#5A55C8" : "#17375E" });
+    d.text({ x: x + 16, y: topY + 126, w: w - 32, h: 34, value: `<b>${body}</b>`, font: 12, color: "#17375E" });
+
+    chips.forEach((label, idx) => {
+      d.rect({
+        x: x + 22,
+        y: topY + 174 + idx * 23,
+        w: w - 44,
+        h: 18,
+        value: label,
+        fill: "#FFFFFF",
+        stroke: "#CAD6E4",
+        sw: 0.9,
+        r: 1,
+        font: 9,
+        color: "#50637A"
+      });
+    });
+
+    if (i === 0) {
+      [0, 1, 2].forEach((n) => d.rect({ x: x + 34 + n * 28, y: topY + 223, w: 18, h: 18, fill: "#776FDB", stroke: "#5A55C8", sw: 1, r: 0 }));
+    }
+    if (i === 2) {
+      [0, 1, 2, 3, 4].forEach((n) => d.ellipse({ x: x + 31 + (n % 3) * 34, y: topY + 217 + Math.floor(n / 3) * 20, w: 11, h: 11, fill: "#6D64D8", stroke: "#6D64D8", sw: 1 }));
+    }
+    if (i === 5) {
+      ["✓", "✓", "✓"].forEach((mark, idx) => d.text({ x: x + 108, y: topY + 173 + idx * 23, w: 20, h: 18, value: mark, font: 12, color: "#0D8F70" }));
+    }
+    if (i < steps.length - 1) d.edge({ sx: x + w, sy: topY + 128, tx: x + w + gap, ty: topY + 128, sw: 2, color: "#182C44" });
   });
 
-  d.rect({ x: 40, y: 430, w: 300, h: 205, value: "<b>A. Example Chunk → Embedding</b>", fill: "#FFFFFF", stroke: "#B7C4D4", font: 14, color: "#172033" });
-  d.rect({ x: 70, y: 494, w: 128, h: 70, value: "The capital of France<br>is Paris.", fill: "#F8FAFD", stroke: "#B7C4D4", font: 12 });
-  d.edge({ sx: 210, sy: 530, tx: 288, ty: 530, sw: 2, color: "#1A4F8C" });
-  d.rect({ x: 70, y: 586, w: 230, h: 34, value: "[ 0.21    -0.47     0.12    ...    0.33 ]", fill: "#FBFDFF", stroke: "#7A9BC6", font: 12, color: "#163A5F" });
+  d.edge({ sx: 197, sy: 367, tx: 180, ty: 422, points: [[197, 398]], dashed: true, color: "#8FA2B8", sw: 1.6 });
+  d.edge({ sx: 558, sy: 367, tx: 620, ty: 422, points: [[558, 398]], dashed: true, color: "#8FA2B8", sw: 1.6 });
+  d.edge({ sx: 900, sy: 367, tx: 1018, ty: 422, points: [[900, 398]], dashed: true, color: "#8FA2B8", sw: 1.6 });
 
-  d.rect({ x: 374, y: 430, w: 424, h: 205, value: "<b>B. Similarity (Query vs Corpus)</b>", fill: "#FFFFFF", stroke: "#B7C4D4", font: 14 });
+  d.rect({ x: 40, y: 426, w: 310, h: 230, value: "", fill: "#FFFFFF", stroke: "#B7C4D4", sw: 1.6, r: 1 });
+  d.text({ x: 58, y: 442, w: 274, h: 24, value: "<b>A. Example Chunk → Embedding</b>", font: 14, color: "#172033" });
+  d.edge({ sx: 58, sy: 474, tx: 332, ty: 474, arrow: "none", color: "#E2E8F0", sw: 1 });
+  d.rect({ x: 70, y: 498, w: 122, h: 70, value: "The capital of France<br>is Paris.", fill: "#F8FAFD", stroke: "#B7C4D4", font: 11, color: "#2B3F55", align: "left" });
+  d.text({ x: 204, y: 500, w: 58, h: 22, value: "Embedding", font: 11, color: "#163A5F", bold: true });
+  d.edge({ sx: 194, sy: 540, tx: 278, ty: 540, sw: 2.2, color: "#1A4F8C" });
+  d.rect({ x: 276, y: 505, w: 38, h: 56, value: "", fill: "#F4F1FF", stroke: "#7B70D6", sw: 1.2, r: 1 });
+  [0, 1, 2, 3].forEach((n) => d.rect({ x: 286, y: 514 + n * 10, w: 18, h: 6, fill: n % 2 ? "#A8A1EE" : "#776FDB", stroke: "#776FDB", sw: 0.5, r: 0 }));
+  d.rect({ x: 70, y: 590, w: 244, h: 34, value: "[ 0.21   -0.47    0.12    ...    0.33 ]", fill: "#FBFDFF", stroke: "#7A9BC6", font: 11, color: "#163A5F" });
+  d.text({ x: 120, y: 628, w: 140, h: 18, value: "d = 1536", font: 10, color: "#596B80" });
+
+  d.rect({ x: 380, y: 426, w: 450, h: 230, value: "", fill: "#FFFFFF", stroke: "#B7C4D4", sw: 1.6, r: 1 });
+  d.text({ x: 402, y: 442, w: 406, h: 24, value: "<b>B. Similarity (Query vs Corpus)</b>", font: 14, color: "#172033" });
+  d.edge({ sx: 402, sy: 474, tx: 808, ty: 474, arrow: "none", color: "#E2E8F0", sw: 1 });
   d.table({
-    x: 404, y: 494, w: 360, h: 116, rows: 5, cols: 6,
+    x: 412, y: 494, w: 384, h: 118, rows: 5, cols: 6,
     values: [
       ["Q \\ D", "D1", "D2", "D3", "...", "DN"],
       ["Q1", "0.71", "0.22", "0.08", "...", "0.31"],
@@ -296,15 +336,34 @@ function makeModelPipeline(outDir) {
     ],
     font: 11
   });
-  d.rect({ x: 464, y: 522, w: 60, h: 29, fill: "#D5F0EA", stroke: "#91A4BC", r: 0, value: "0.71", font: 11 });
-  d.rect({ x: 524, y: 552, w: 60, h: 29, fill: "#D5F0EA", stroke: "#91A4BC", r: 0, value: "0.81", font: 11 });
-  d.rect({ x: 644, y: 581, w: 60, h: 29, fill: "#D5F0EA", stroke: "#91A4BC", r: 0, value: "0.62", font: 11 });
+  const cw = 384 / 6;
+  const rh = 118 / 5;
+  [
+    [1, 1, "0.71", "#BEE9E0"],
+    [2, 2, "0.81", "#9BE0D2"],
+    [4, 3, "0.62", "#D0F0E8"]
+  ].forEach(([r, c, v, fill]) => d.rect({ x: 412 + c * cw, y: 494 + r * rh, w: cw, h: rh, fill, stroke: "#91A4BC", r: 0, value: v, font: 11, color: "#17375E" }));
+  d.rect({ x: 430, y: 622, w: 90, h: 14, fill: "#ECFDF8", stroke: "#91A4BC", r: 0, value: "low", font: 8, color: "#596B80" });
+  d.rect({ x: 520, y: 622, w: 90, h: 14, fill: "#BEE9E0", stroke: "#91A4BC", r: 0, value: "medium", font: 8, color: "#596B80" });
+  d.rect({ x: 610, y: 622, w: 90, h: 14, fill: "#79D3C0", stroke: "#91A4BC", r: 0, value: "high", font: 8, color: "#596B80" });
+  d.text({ x: 710, y: 619, w: 70, h: 18, value: "similarity", font: 9, color: "#596B80", align: "left" });
 
-  d.rect({ x: 832, y: 430, w: 408, h: 205, value: "<b>C. Confidence</b>", fill: "#FFFFFF", stroke: "#B7C4D4", font: 14 });
-  d.ellipse({ x: 940, y: 504, w: 170, h: 120, fill: "#FFFFFF", stroke: "#D6DEE8", sw: 1 });
-  d.edge({ sx: 1025, sy: 590, tx: 1090, ty: 526, sw: 4, color: "#253B53", arrow: "classic" });
-  ["#E75C55", "#F2B84B", "#55B87A"].forEach((fill, i) => d.rect({ x: 918 + i * 70, y: 512 - i * 14, w: 70, h: 28, fill, stroke: fill, r: 1, value: "" }));
-  d.text({ x: 982, y: 576, w: 92, h: 38, value: "<b>0.86</b><br><span style='font-size:11px'>High Confidence</span>", font: 18, color: "#122A44" });
+  d.rect({ x: 860, y: 426, w: 380, h: 230, value: "", fill: "#FFFFFF", stroke: "#B7C4D4", sw: 1.6, r: 1 });
+  d.text({ x: 882, y: 442, w: 336, h: 24, value: "<b>C. Confidence</b>", font: 14, color: "#172033" });
+  d.edge({ sx: 882, sy: 474, tx: 1218, ty: 474, arrow: "none", color: "#E2E8F0", sw: 1 });
+  d.ellipse({ x: 948, y: 514, w: 190, h: 132, fill: "#FFFFFF", stroke: "#D6DEE8", sw: 1 });
+  [
+    [914, 570, 82, 24, "#E75C55"],
+    [982, 530, 92, 24, "#F2B84B"],
+    [1060, 500, 92, 24, "#55B87A"]
+  ].forEach(([x, y, ww, hh, fill]) => d.rect({ x, y, w: ww, h: hh, fill, stroke: fill, r: 1, value: "" }));
+  d.edge({ sx: 1043, sy: 612, tx: 1110, ty: 532, sw: 4, color: "#253B53", arrow: "classic" });
+  d.text({ x: 912, y: 622, w: 26, h: 18, value: "0", font: 10, color: "#596B80" });
+  d.text({ x: 1052, y: 486, w: 28, h: 18, value: "0.5", font: 10, color: "#596B80" });
+  d.text({ x: 1150, y: 622, w: 32, h: 18, value: "1.0", font: 10, color: "#596B80" });
+  d.text({ x: 1010, y: 584, w: 98, h: 48, value: "<b>0.86</b><br><span style='font-size:11px'>High Confidence</span>", font: 20, color: "#122A44" });
+  d.rect({ x: 884, y: 492, w: 74, h: 24, value: "Grounded", fill: "#F7FBF8", stroke: "#C7D8C8", font: 10, color: "#3E6D48" });
+  d.rect({ x: 1150, y: 492, w: 64, h: 24, value: "Verified", fill: "#F7FBF8", stroke: "#C7D8C8", font: 10, color: "#3E6D48" });
 
   fs.writeFileSync(path.join(outDir, "model-pipeline.drawio"), d.xml());
   writeSvgAssets(outDir, [["cloud", "Data ingestion"], ["filter", "Preprocessing"], ["graph", "Embedding vectors"], ["search", "Retrieval"], ["brain", "Model inference"], ["shield", "Verifier"], ["document", "Final output"]]);
