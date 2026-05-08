@@ -82,7 +82,15 @@ Requirements:
 
 ## Examples
 
-See [examples/concept-board](examples/concept-board/README.md) for four independent generated-reference recreations:
+See [examples/contextforge](examples/contextforge/README.md) for a high-density academic-style framework figure recreation:
+
+- Multi-source context assembly
+- Conflict resolution workflow
+- Quality gates
+- Citation and trace packaging
+- Assembly buffer and feedback loop
+
+See [examples/concept-board](examples/concept-board/README.md) for four additional generated-reference recreations:
 
 - Research Framework
 - Agent Platform Architecture

@@ -82,7 +82,9 @@ macOS 上通常可以这样导出 PNG：
 
 ## 示例
 
-见 [examples/concept-board](examples/concept-board/README.md)。当前包含四个独立的参考图复刻示例：
+见 [examples/contextforge](examples/contextforge/README.md)。这是一个高密度论文风格框架图复刻示例，包含多源上下文组装、冲突解决、质量门禁、引用追踪包和组装缓冲区。
+
+另见 [examples/concept-board](examples/concept-board/README.md)。当前包含四个独立的参考图复刻示例：
 
 - Research Framework
 - Agent Platform Architecture

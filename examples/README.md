@@ -24,3 +24,4 @@ Do not commit private customer diagrams, screenshots with sensitive text, or pro
 ## Included
 
 - [concept-board](concept-board/README.md): four independent generated-reference examples covering a research framework, agent platform architecture, model pipeline, and experience flywheel.
+- [contextforge](contextforge/README.md): one high-density academic-style framework figure with multi-source tables, conflict resolution, quality gates, trace packaging, and an assembly buffer.
