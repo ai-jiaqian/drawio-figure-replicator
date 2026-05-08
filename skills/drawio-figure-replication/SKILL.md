@@ -22,28 +22,36 @@ This skill is reference-first. If the user asks for generic text-to-diagram crea
    - Read exact dimensions with PIL, ImageMagick, or the available image-inspection tool.
    - Identify major regions, reading order, repeated components, colors, typography, arrows, spacing, and icon assets.
    - Write a compact layout fingerprint before generating XML: canvas size, major regions, approximate coordinates, node count, connector directions, repeated styles, and known uncertainty.
+   - For dense figures, include a module map: panel names, approximate bounding boxes, internal components, incoming/outgoing connectors, and uncertainty per panel.
    - Decide which elements need standalone SVGs. Keep boxes, connectors, text, lanes, tables, pills, progress bars, and dashed callouts as editable draw.io cells.
 
-3. **Build required SVG assets first**
+3. **Use module-first replication for large or dense figures**
+   - If the reference has multiple panels, tables, swimlanes, repeated cards, or many crossing connectors, do not build the entire figure in one pass.
+   - Implement one module/panel at a time, preferably as a dedicated function per module in the XML generator.
+   - For each module, first match local frame size, internal grid, labels, icons, arrows, table spacing, small legends, and state chips before moving on.
+   - Export module-level QA crops or contact sheets comparing reference vs draw.io output. Treat these crops as the primary review surface; the full-diagram preview is the final integration check.
+   - Add cross-module connectors only after local modules are acceptable. Keep these connectors in a final integration section so route fixes do not disturb module internals.
+
+4. **Build required SVG assets first**
    - Save each reusable icon as a separate simple SVG under `svg/`.
    - Prefer `viewBox="0 0 256 256"`, consistent stroke widths, round caps/joins, and no unnecessary filters.
    - Do not trace protected logos or signature brand marks unless the user explicitly confirms permission.
    - Create `SVG_ASSETS.md` listing each asset, what it represents, and whether it is original, generic, or derived from the reference.
 
-4. **Generate the `.drawio` via XML**
+5. **Generate the `.drawio` via XML**
    - Prefer coordinate-based `mxfile` / `mxGraphModel` / `mxCell` generation over manual dragging.
    - Use uncompressed XML so the file can be inspected and debugged.
    - Embed SVG files as `shape=image` data URIs so the draw.io file is portable.
    - Keep major text, arrows, boxes, tables, and labels as editable draw.io cells.
    - Use a canvas close to the reference dimensions unless the user requests a new size.
 
-5. **Typography and formulas**
+6. **Typography and formulas**
    - Match the reference or adjacent figures. If a prior figure establishes a style, reuse that style.
    - Avoid mixed font families unless the reference clearly requires it.
    - For formulas, first try same-family text with HTML subscripts/superscripts, Greek letters, dots, and color.
    - Use true LaTeX/MathJax only when explicitly requested and the export path supports it.
 
-6. **Validate and export**
+7. **Validate and export**
    - Validate XML:
      ```bash
      xmllint --noout output.drawio
@@ -54,9 +62,10 @@ This skill is reference-first. If the user asks for generic text-to-diagram crea
      ```
    - Treat GPU warnings as non-blocking if the command exits successfully and the output file exists.
 
-7. **Visual-check and iterate**
+8. **Visual-check and iterate**
    - Open or inspect the exported PNG.
    - Compare against the reference for major layout, spacing, region size, arrow routing, text hierarchy, icon placement, and clipping.
+   - For dense figures, inspect both the full-diagram comparison and module-level crops/contact sheets.
    - Fix visible issues before delivering: overlapped text, clipped labels, wrong font weight, connector drift, missing arrowheads, inconsistent padding, or panel-size mismatch.
 
 ## Quality Bar
@@ -66,11 +75,13 @@ This skill is reference-first. If the user asks for generic text-to-diagram crea
 - The exported PNG opens and has dimensions close to the reference unless a different output size was requested.
 - Text does not overflow, wrap unexpectedly, or mix clashing fonts.
 - Connectors visually attach to intended sources and targets.
+- Dense or multi-panel figures include module-level QA crops/contact sheets, not only a full-diagram preview.
 - Final response includes paths to the output folder, `.drawio`, PNG preview, SVG directory, and caveats.
 
 ## Common Mistakes
 
 - Using the screenshot as the diagram instead of editable cells.
+- Building a large multi-panel figure in one pass and only checking the final full-size preview.
 - Making every tiny line an SVG; use draw.io primitives where possible.
 - Skipping the layout fingerprint and producing a generic approximation.
 - Overusing bold, italic, or hand-written fonts in dense technical figures.
